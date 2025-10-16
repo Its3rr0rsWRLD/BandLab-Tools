@@ -8,7 +8,7 @@ body {
   width: 360px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #0a0e27;
   color: #fff;
   overflow: hidden;
 }
@@ -18,7 +18,7 @@ body.expanded {
 }
 
 .container {
-  background: #1a1a2e;
+  background: #0f1424;
   min-height: 600px;
   display: flex;
   flex-direction: column;
@@ -26,22 +26,27 @@ body.expanded {
 }
 
 header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: rgba(20, 24, 50, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   padding: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .logo {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
 }
 
-.logo svg {
-  color: #fff;
+.logo-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
 }
 
 h1 {
@@ -51,12 +56,13 @@ h1 {
 }
 
 .version {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
   padding: 4px 10px;
   border-radius: 12px;
   font-size: 11px;
   font-weight: 500;
   backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 main {
@@ -72,7 +78,7 @@ body.expanded main {
 
 .search-container {
   padding: 12px 20px;
-  background: #16213e;
+  background: rgba(20, 24, 50, 0.5);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -97,21 +103,22 @@ body.expanded main {
 }
 
 #searchInput::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.3);
 }
 
 #searchInput:focus {
   background: rgba(255, 255, 255, 0.08);
-  border-color: #667eea;
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .section {
-  background: #16213e;
+  background: rgba(20, 24, 50, 0.4);
   border-radius: 12px;
   margin-bottom: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   overflow: hidden;
   transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .section.hidden {
@@ -139,7 +146,7 @@ body.expanded main {
 }
 
 .section-header svg:first-child {
-  color: #667eea;
+  color: #fff;
 }
 
 .chevron {
@@ -239,7 +246,7 @@ h2 {
 }
 
 .toggle input:checked + .slider {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: rgba(100, 200, 255, 0.6);
 }
 
 .toggle input:checked + .slider:before {
@@ -247,17 +254,17 @@ h2 {
 }
 
 .toggle:hover .slider {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .toggle input:checked:hover + .slider {
-  background: linear-gradient(135deg, #7c8ef7 0%, #8b5bb3 100%);
+  background: rgba(100, 200, 255, 0.7);
 }
 
 .action-button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: rgba(100, 200, 255, 0.3);
   color: white;
-  border: none;
+  border: 1px solid rgba(100, 200, 255, 0.5);
   border-radius: 6px;
   padding: 8px 20px;
   font-size: 13px;
@@ -268,8 +275,8 @@ h2 {
 }
 
 .action-button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  background: rgba(100, 200, 255, 0.4);
+  border-color: rgba(100, 200, 255, 0.7);
 }
 
 .action-button:active {
@@ -277,7 +284,8 @@ h2 {
 }
 
 footer {
-  background: #0f1624;
+  background: rgba(10, 14, 39, 0.8);
+  backdrop-filter: blur(10px);
   padding: 16px 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
@@ -285,6 +293,7 @@ footer {
 .status {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   font-size: 13px;
 }
@@ -311,21 +320,34 @@ footer {
   color: rgba(255, 255, 255, 0.8);
 }
 
+.credits {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  margin-top: 12px;
+}
+
+.credits a {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 ::-webkit-scrollbar {
   width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a2e;
+  background: rgba(10, 14, 39, 0.5);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(100, 200, 255, 0.3);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(100, 200, 255, 0.5);
 }
 
 .loading {
@@ -336,10 +358,11 @@ footer {
 }
 
 .experiment-item {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(100, 200, 255, 0.05);
   border-radius: 6px;
   padding: 10px;
   margin-bottom: 8px;
+  border: 1px solid rgba(100, 200, 255, 0.1);
 }
 
 .experiment-name {
@@ -366,8 +389,8 @@ footer {
 .experiment-btn {
   flex: 1;
   min-width: 60px;
-  background: rgba(102, 126, 234, 0.3);
-  border: 1px solid rgba(102, 126, 234, 0.5);
+  background: rgba(100, 200, 255, 0.2);
+  border: 1px solid rgba(100, 200, 255, 0.3);
   color: white;
   border-radius: 4px;
   padding: 6px 12px;
@@ -378,19 +401,19 @@ footer {
 }
 
 .experiment-btn:hover {
-  background: rgba(102, 126, 234, 0.5);
-  border-color: #667eea;
+  background: rgba(100, 200, 255, 0.35);
+  border-color: rgba(100, 200, 255, 0.6);
 }
 
 .experiment-btn.active {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-color: #667eea;
+  background: rgba(100, 200, 255, 0.5);
+  border-color: rgba(100, 200, 255, 0.8);
 }
 
 .experiment-input {
   flex: 1;
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(100, 200, 255, 0.2);
   border-radius: 4px;
   padding: 8px 12px;
   color: #fff;
@@ -401,7 +424,7 @@ footer {
 
 .experiment-input:focus {
   background: rgba(255, 255, 255, 0.08);
-  border-color: #667eea;
+  border-color: rgba(100, 200, 255, 0.6);
 }
 
 .experiment-input::placeholder {
