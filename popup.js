@@ -1,3 +1,30 @@
+let isOnBandLab = false;
+
+chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+  const currentTab = tabs[0];
+  const url = currentTab.url || "";
+  isOnBandLab = url.includes("bandlab.com");
+  
+  const status = document.getElementById("status");
+  const statusText = status.querySelector(".status-text");
+  const statusIndicator = status.querySelector(".status-indicator");
+  
+  if (!isOnBandLab) {
+    statusText.textContent = "Not on BandLab";
+    statusIndicator.style.background = "#ff6b6b";
+    document.querySelectorAll("input[type='checkbox']").forEach((input) => {
+      input.disabled = true;
+    });
+    document.querySelectorAll("input[type='text']").forEach((input) => {
+      input.disabled = true;
+    });
+    document.querySelectorAll("input[type='number']").forEach((input) => {
+      input.disabled = true;
+    });
+    document.body.classList.add("not-bandlab");
+  }
+});
+
 chrome.storage.sync.get(
   [
     "membershipBypass",
@@ -81,6 +108,11 @@ document.getElementById("searchInput").addEventListener("input", (e) => {
 });
 
 document.getElementById("membershipBypass").addEventListener("change", (e) => {
+  if (!isOnBandLab) {
+    e.target.checked = !e.target.checked;
+    showNotification("Head to BandLab to use this feature");
+    return;
+  }
   chrome.storage.sync.set({ membershipBypass: e.target.checked }, () => {
     showNotification(
       e.target.checked
@@ -99,6 +131,11 @@ document.getElementById("membershipBypass").addEventListener("change", (e) => {
 });
 
 document.getElementById("harmonyEditor").addEventListener("change", (e) => {
+  if (!isOnBandLab) {
+    e.target.checked = !e.target.checked;
+    showNotification("Head to BandLab to use this feature");
+    return;
+  }
   chrome.storage.sync.set({ harmonyEditor: e.target.checked }, () => {
     showNotification(
       e.target.checked
@@ -117,6 +154,11 @@ document.getElementById("harmonyEditor").addEventListener("change", (e) => {
 });
 
 document.getElementById("blockAnalytics").addEventListener("change", (e) => {
+  if (!isOnBandLab) {
+    e.target.checked = !e.target.checked;
+    showNotification("Head to BandLab to use this feature");
+    return;
+  }
   chrome.storage.sync.set({ blockAnalytics: e.target.checked }, () => {
     chrome.tabs.query({ url: "*://*.bandlab.com/*" }, (tabs) => {
       tabs.forEach((tab) => {
@@ -159,6 +201,11 @@ document.getElementById("blockAnalytics").addEventListener("change", (e) => {
 });
 
 document.getElementById("sony360Audio").addEventListener("change", (e) => {
+  if (!isOnBandLab) {
+    e.target.checked = !e.target.checked;
+    showNotification("Head to BandLab to use this feature");
+    return;
+  }
   chrome.storage.sync.set({ sony360Audio: e.target.checked }, () => {
     chrome.tabs.query({ url: "*://*.bandlab.com/*" }, (tabs) => {
       tabs.forEach((tab) => {
