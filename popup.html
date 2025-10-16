@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BandLab Tools</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="logo">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"
+              fill="currentColor"
+            />
+          </svg>
+          <h1>BandLab Tools</h1>
+        </div>
+        <div class="version">v1.0.0</div>
+      </header>
+
+      <div class="search-container">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+            fill="currentColor"
+          />
+        </svg>
+        <input type="text" id="searchInput" placeholder="Search features..." />
+      </div>
+
+      <main>
+        <section class="section">
+          <div class="section-header" data-section="bypass">
+            <div class="section-title-group">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6z"
+                  fill="currentColor"
+                />
+              </svg>
+              <h2>Bypass</h2>
+            </div>
+            <svg
+              class="chevron"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+
+          <div class="section-content" data-content="bypass">
+            <div class="option">
+              <div class="option-info">
+                <div class="option-title">Membership Plan Override</div>
+                <div class="option-description">
+                  Spoof premium membership status
+                </div>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" id="membershipBypass" />
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <div class="option">
+              <div class="option-info">
+                <div class="option-title">Harmony Editor Unlock</div>
+                <div class="option-description">
+                  Enable editing in Studio harmony editor
+                </div>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" id="harmonyEditor" />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-header" data-section="privacy">
+            <div class="section-title-group">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"
+                  fill="currentColor"
+                />
+              </svg>
+              <h2>Privacy</h2>
+            </div>
+            <svg
+              class="chevron"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+
+          <div class="section-content" data-content="privacy">
+            <div class="option">
+              <div class="option-info">
+                <div class="option-title">Block All Analytics</div>
+                <div class="option-description">
+                  Disable tracking & analytics cookies
+                </div>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" id="blockAnalytics" />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-header" data-section="experimental">
+            <div class="section-title-group">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M20.8 18.4L14 10.67V6.5l1.35-1.69c.26-.33.03-.81-.39-.81H9.04c-.42 0-.65.48-.39.81L10 6.5v4.17L3.2 18.4c-.49.66-.02 1.6.8 1.6h16c.82 0 1.29-.94.8-1.6z"
+                  fill="currentColor"
+                />
+              </svg>
+              <h2>Experimental</h2>
+            </div>
+            <svg
+              class="chevron"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+
+          <div class="section-content" data-content="experimental">
+            <div class="option">
+              <div class="option-info">
+                <div class="option-title">Sony 360 Reality Audio</div>
+                <div class="option-description">
+                  Enable immersive spatial audio feature
+                </div>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" id="sony360Audio" />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-header" data-section="settings">
+            <div class="section-title-group">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94L14.4 2.81c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"
+                  fill="currentColor"
+                />
+              </svg>
+              <h2>Settings</h2>
+            </div>
+            <svg
+              class="chevron"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+
+          <div class="section-content" data-content="settings">
+            <div class="option">
+              <div class="option-info">
+                <div class="option-title">Full Experimentals Mode</div>
+                <div class="option-description">
+                  Show all amplitude experiments
+                </div>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" id="fullExperimentals" />
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <div class="option">
+              <div class="option-info">
+                <div class="option-title">Auto-Reload Pages</div>
+                <div class="option-description">
+                  Reload tabs when toggling features
+                </div>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" id="autoReload" checked />
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <div class="option">
+              <div class="option-info">
+                <div class="option-title">Console Logging</div>
+                <div class="option-description">
+                  Show interception logs in console
+                </div>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" id="consoleLogging" checked />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <!-- Full Experimentals Section (Hidden by default) -->
+        <section
+          class="section"
+          id="fullExperimentalsSection"
+          style="display: none"
+        >
+          <div class="section-header" data-section="fullexperiments">
+            <div class="section-title-group">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"
+                  fill="currentColor"
+                />
+              </svg>
+              <h2>All Amplitude Experiments</h2>
+            </div>
+            <svg
+              class="chevron"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+
+          <div class="section-content" data-content="fullexperiments">
+            <div id="experimentsList">
+              <div class="loading">
+                Loading experiments from active BandLab tab...
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <div class="status" id="status">
+          <span class="status-indicator"></span>
+          <span class="status-text">Active on BandLab</span>
+        </div>
+      </footer>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

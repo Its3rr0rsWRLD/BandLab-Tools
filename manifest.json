@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "BandLab Tools",
+  "version": "0.1.0",
+  "description": "A powerful toolset for BandLab with bypass features and enhancements",
+  "permissions": ["storage", "scripting"],
+  "host_permissions": ["*://*.bandlab.com/*"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["pagePatch.js"],
+      "matches": ["*://*.bandlab.com/*"]
+    }
+  ],
+  "content_scripts": [
+    {
+      "matches": ["*://*.bandlab.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["*://*.bandlab.com/*"],
+      "js": ["pagePatch.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["*://*.bandlab.com/studio*"],
+      "js": ["harmonyEditor.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
