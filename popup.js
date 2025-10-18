@@ -1,4 +1,5 @@
 let isOnBandLab = false;
+let currentSearchTerm = "";
 
 chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
   const currentTab = tabs[0];
@@ -83,6 +84,7 @@ document.querySelector(".section-header").click();
 
 document.getElementById("searchInput").addEventListener("input", (e) => {
   const searchTerm = e.target.value.toLowerCase();
+  currentSearchTerm = searchTerm;
 
   document.querySelectorAll(".section").forEach((section) => {
     const sectionText = section.textContent.toLowerCase();
@@ -104,6 +106,19 @@ document.getElementById("searchInput").addEventListener("input", (e) => {
           .querySelector(`[data-content="${section}"]`)
           .classList.add("active");
       });
+
+    document.querySelectorAll(".experiment-item").forEach((item) => {
+      const itemText = item.textContent.toLowerCase();
+      if (itemText.includes(searchTerm)) {
+        item.style.display = "block";
+      } else {
+        item.style.display = "none";
+      }
+    });
+  } else {
+    document.querySelectorAll(".experiment-item").forEach((item) => {
+      item.style.display = "block";
+    });
   }
 });
 
@@ -472,10 +487,24 @@ function toggleExperiment(tabId, storageKey, expName, newValue) {
           }, 300);
         } else {
           loadAllExperiments();
+          reapplySearchFilter();
         }
       });
     }
   );
+}
+
+function reapplySearchFilter() {
+  if (!currentSearchTerm) return;
+
+  document.querySelectorAll(".experiment-item").forEach((item) => {
+    const itemText = item.textContent.toLowerCase();
+    if (itemText.includes(currentSearchTerm)) {
+      item.style.display = "block";
+    } else {
+      item.style.display = "none";
+    }
+  });
 }
 
 document.getElementById("autoReload").addEventListener("change", (e) => {
