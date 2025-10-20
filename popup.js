@@ -5,11 +5,11 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
   const currentTab = tabs[0];
   const url = currentTab.url || "";
   isOnBandLab = url.includes("bandlab.com");
-  
+
   const status = document.getElementById("status");
   const statusText = status.querySelector(".status-text");
   const statusIndicator = status.querySelector(".status-indicator");
-  
+
   if (!isOnBandLab) {
     statusText.textContent = "Not on BandLab";
     statusIndicator.style.background = "#ff6b6b";
@@ -532,7 +532,9 @@ document.getElementById("themeSelector").addEventListener("change", (e) => {
   const theme = e.target.value;
   chrome.storage.sync.set({ theme: theme }, () => {
     applyTheme(theme);
-    showNotification(`Theme changed to ${e.target.options[e.target.selectedIndex].text}`);
+    showNotification(
+      `Theme changed to ${e.target.options[e.target.selectedIndex].text}`
+    );
   });
 });
 
@@ -543,7 +545,7 @@ function applyTheme(theme) {
     "midnight-blue",
     "neon-pink"
   );
-  
+
   if (theme !== "black-glass") {
     document.body.classList.add(theme);
   }
