@@ -1,31 +1,50 @@
-# BandLab Tools
-
 <div align="center">
   <img src="./github/banner.png" alt="BandLab Tools Banner" width="100%">
 </div>
 
-## Installation
+## Quick Start
 
-1. Clone or download this repo
-2. Go to `chrome://extensions` (or `edge://extensions`)
-3. Turn on **Developer mode**
-4. Click **Load unpacked** and select this folder
+1. **Clone or download** this repository
+2. **Navigate to extensions**: `chrome://extensions` (Chrome) or `edge://extensions` (Edge)
+3. **Enable Developer mode** in the top right corner
+4. **Click "Load unpacked"** and select this folder
+5. You're ready to go! Look for the extension icon in your toolbar
 
-## Features
+## Quick Look
 
-**Override**
-- Membership Plan Override - overrides premium status
-- Harmony Editor Unlock - enable harmony editing in studio
+<div align="center">
+  <img src="./github/menu.png" alt="BandLab Tools Interface" width="360">
+</div>
 
-**Privacy**
-- Block All Analytics - disable tracking
+### Bypass
+Unlock premium content and restricted features:
+- **Membership Plan Override** — Unlock all **client-side** membership features
+- **Harmony Editor Unlock** — Enable full editing capabilities in Studio's harmony editor
 
-**Experimental**
-- Sony 360 Reality Audio - toggle immersive audio
-- Full Experimentals Mode - access all experiments from localStorage
+### Privacy
+Take control of your data:
+- **Block All Analytics** — Disable BandLab's tracking and analytics cookies
 
-**Settings**
-- Auto-Reload Pages
-- Console Logging
+### Experimental
+Explore cutting-edge features:
+- **Sony 360 Reality Audio** — Enable immersive spatial audio playback (when available)
 
-**⚠️ For educational purposes only.**
+### Settings
+Customize your experience:
+- **Full Experimentals Mode** — Unlock the full list of BandLab's amplitude experiments for advanced tweaking
+- **Auto-Reload Pages** — Automatically refresh BandLab tabs when toggling features
+- **Console Logging** — Display interception logs in your browser console for debugging
+- **Theme** — Choose from 4 themes (Black Glass, Purple Haze, Midnight Blue, Neon Pink)
+
+## Advanced: Full Experimentals
+
+Enable "Full Experimentals Mode" in Settings to access all amplitude experiments stored in BandLab's localStorage. Each experiment can be:
+- Toggled on/off (for boolean flags)
+- Modified with custom values (for strings and numbers)
+- Real-time tested without UI clicks
+
+Perfect for power users and developers exploring BandLab's feature flags.
+
+---
+
+⚠️ **For educational and personal use only.** Please respect BandLab's terms of service.

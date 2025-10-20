@@ -35,6 +35,7 @@ chrome.storage.sync.get(
     "fullExperimentals",
     "autoReload",
     "consoleLogging",
+    "theme",
   ],
   (data) => {
     document.getElementById("membershipBypass").checked =
@@ -50,6 +51,10 @@ chrome.storage.sync.get(
     document.getElementById("autoReload").checked = data.autoReload !== false;
     document.getElementById("consoleLogging").checked =
       data.consoleLogging !== false;
+
+    const theme = data.theme || "black-glass";
+    document.getElementById("themeSelector").value = theme;
+    applyTheme(theme);
 
     if (data.fullExperimentals === true) {
       document.body.classList.add("expanded");
@@ -522,6 +527,27 @@ document.getElementById("consoleLogging").addEventListener("change", (e) => {
     );
   });
 });
+
+document.getElementById("themeSelector").addEventListener("change", (e) => {
+  const theme = e.target.value;
+  chrome.storage.sync.set({ theme: theme }, () => {
+    applyTheme(theme);
+    showNotification(`Theme changed to ${e.target.options[e.target.selectedIndex].text}`);
+  });
+});
+
+function applyTheme(theme) {
+  document.body.classList.remove(
+    "black-glass",
+    "purple-haze",
+    "midnight-blue",
+    "neon-pink"
+  );
+  
+  if (theme !== "black-glass") {
+    document.body.classList.add(theme);
+  }
+}
 
 function showNotification(message) {
   const status = document.getElementById("status");
