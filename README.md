@@ -17,20 +17,28 @@
 </div>
 
 ### Bypass
+
 Unlock premium content and restricted features:
+
 - **Membership Plan Override** — Unlock all **client-side** membership features
 - **Harmony Editor Unlock** — Enable full editing capabilities in Studio's harmony editor
 
 ### Privacy
+
 Take control of your data:
+
 - **Block All Analytics** — Disable BandLab's tracking and analytics cookies
 
 ### Experimental
+
 Explore cutting-edge features:
+
 - **Sony 360 Reality Audio** — Enable immersive spatial audio playback (when available)
 
 ### Settings
+
 Customize your experience:
+
 - **Full Experimentals Mode** — Unlock the full list of BandLab's amplitude experiments for advanced tweaking
 - **Auto-Reload Pages** — Automatically refresh BandLab tabs when toggling features
 - **Console Logging** — Display interception logs in your browser console for debugging
@@ -39,6 +47,7 @@ Customize your experience:
 ## Advanced: Full Experimentals
 
 Enable "Full Experimentals Mode" in Settings to access all amplitude experiments stored in BandLab's localStorage. Each experiment can be:
+
 - Toggled on/off (for boolean flags)
 - Modified with custom values (for strings and numbers)
 - Real-time tested without UI clicks

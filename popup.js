@@ -36,6 +36,7 @@ chrome.storage.sync.get(
     "autoReload",
     "consoleLogging",
     "theme",
+    "cleanInviteLinks",
   ],
   (data) => {
     document.getElementById("membershipBypass").checked =
@@ -51,6 +52,8 @@ chrome.storage.sync.get(
     document.getElementById("autoReload").checked = data.autoReload !== false;
     document.getElementById("consoleLogging").checked =
       data.consoleLogging !== false;
+    document.getElementById("cleanInviteLinks").checked =
+      data.cleanInviteLinks !== false;
 
     const theme = data.theme || "black-glass";
     document.getElementById("themeSelector").value = theme;
@@ -534,6 +537,16 @@ document.getElementById("themeSelector").addEventListener("change", (e) => {
     applyTheme(theme);
     showNotification(
       `Theme changed to ${e.target.options[e.target.selectedIndex].text}`
+    );
+  });
+});
+
+document.getElementById("cleanInviteLinks").addEventListener("change", (e) => {
+  chrome.storage.sync.set({ cleanInviteLinks: e.target.checked }, () => {
+    showNotification(
+      e.target.checked
+        ? "Clean invite links enabled"
+        : "Clean invite links disabled"
     );
   });
 });

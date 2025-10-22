@@ -1,5 +1,10 @@
 function initHarmonyEditor() {
   document.getElementById("harmonyEditor").addEventListener("change", (e) => {
+    if (!isOnBandLab) {
+      e.target.checked = !e.target.checked;
+      showNotification("Head to BandLab to use this feature");
+      return;
+    }
     chrome.storage.sync.set({ harmonyEditor: e.target.checked }, () => {
       showNotification(
         e.target.checked

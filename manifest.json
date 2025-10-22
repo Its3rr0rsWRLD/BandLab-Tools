@@ -20,7 +20,15 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["pagePatch.js"],
+      "resources": [
+        "pagePatch.js",
+        "tools/cleanInviteLinks.js",
+        "tools/blockAnalytics.js",
+        "tools/sony360Audio.js",
+        "tools/membershipBypass.js",
+        "tools/harmonyEditorUnlock.js",
+        "tools/fullExperimentals.js"
+      ],
       "matches": ["*://*.bandlab.com/*"]
     }
   ],
@@ -37,9 +45,17 @@
       "world": "MAIN"
     },
     {
-      "matches": ["*://*.bandlab.com/studio*"],
-      "js": ["harmonyEditor.js"],
-      "run_at": "document_idle"
+      "matches": ["*://*.bandlab.com/*"],
+      "js": [
+        "tools/cleanInviteLinks.js",
+        "tools/blockAnalytics.js",
+        "tools/sony360Audio.js",
+        "tools/membershipBypass.js",
+        "tools/harmonyEditorUnlock.js",
+        "tools/fullExperimentals.js"
+      ],
+      "run_at": "document_end",
+      "world": "MAIN"
     }
   ]
 }

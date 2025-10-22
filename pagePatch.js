@@ -2,10 +2,22 @@
   let membershipBypassEnabled = true;
   let consoleLoggingEnabled = true;
 
+  window.BANDLAB_TOOLS_SETTINGS = {
+    membershipBypass: true,
+    consoleLogging: true,
+    cleanInviteLinks: true,
+    blockAnalytics: false,
+    sony360Audio: false,
+    harmonyEditorUnlock: false,
+    fullExperimentals: false,
+  };
+
   window.addEventListener("message", (event) => {
     if (event.data.type === "BANDLAB_TOOLS_SETTINGS") {
       membershipBypassEnabled = event.data.settings.membershipBypass;
       consoleLoggingEnabled = event.data.settings.consoleLogging;
+
+      window.BANDLAB_TOOLS_SETTINGS = event.data.settings;
 
       if (consoleLoggingEnabled) {
         console.log(
