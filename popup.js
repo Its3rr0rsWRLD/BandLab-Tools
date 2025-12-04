@@ -37,6 +37,7 @@ chrome.storage.sync.get(
     "consoleLogging",
     "theme",
     "cleanInviteLinks",
+    "totalProjects",
   ],
   (data) => {
     document.getElementById("membershipBypass").checked =
@@ -54,6 +55,8 @@ chrome.storage.sync.get(
       data.consoleLogging !== false;
     document.getElementById("cleanInviteLinks").checked =
       data.cleanInviteLinks !== false;
+    document.getElementById("totalProjects").checked =
+      data.totalProjects !== false;
 
     const theme = data.theme || "black-glass";
     document.getElementById("themeSelector").value = theme;
@@ -551,6 +554,27 @@ document.getElementById("cleanInviteLinks").addEventListener("change", (e) => {
   });
 });
 
+document.getElementById("totalProjects").addEventListener("change", (e) => {
+  if (!isOnBandLab) {
+    e.target.checked = !e.target.checked;
+    showNotification("Head to BandLab to use this feature");
+    return;
+  }
+  chrome.storage.sync.set({ totalProjects: e.target.checked }, () => {
+    showNotification(
+      e.target.checked ? "Total Projects enabled" : "Total Projects disabled"
+    );
+
+    chrome.storage.sync.get(["autoReload"], (data) => {
+      if (data.autoReload !== false) {
+        chrome.tabs.query({ url: "*://*.bandlab.com/*" }, (tabs) => {
+          tabs.forEach((tab) => chrome.tabs.reload(tab.id));
+        });
+      }
+    });
+  });
+});
+
 function applyTheme(theme) {
   document.body.classList.remove(
     "black-glass",
@@ -577,3 +601,17 @@ function showNotification(message) {
     status.innerHTML = originalHTML;
   }, 2000);
 }
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const updateInfo = await checkForUpdates();
+  
+  if (updateInfo && updateInfo.hasUpdate) {
+    chrome.storage.sync.get(['updateDismissed'], (data) => {
+      if (data.updateDismissed) {
+        showUpdateAlert();
+      } else {
+        showUpdateNotification(updateInfo);
+      }
+    });
+  }
+});

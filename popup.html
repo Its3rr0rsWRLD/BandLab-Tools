@@ -17,7 +17,7 @@
           href="https://github.com/its3rr0rswrld/Bandlab-Tools"
           target="_blank"
           class="version"
-          >v1.0.3</a
+          >v1.0.5</a
         >
       </header>
 
@@ -29,6 +29,36 @@
           />
         </svg>
         <input type="text" id="searchInput" placeholder="Search features..." />
+      </div>
+
+      <!-- Update Notification Modal -->
+      <div id="updateNotificationOverlay" class="update-overlay" style="display: none;">
+        <div class="update-modal">
+          <div class="update-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3 class="update-modal-title">Update Available</h3>
+          <p class="update-modal-version">Version <strong id="updateVersion">v1.0.5</strong> is now available!</p>
+          
+          <div class="update-details">
+            <button class="details-toggle" id="detailsToggle">
+              <span>More Details</span>
+              <svg class="details-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M7 10l5 5 5-5z" fill="currentColor"/>
+              </svg>
+            </button>
+            <div id="releaseNotesDetails" class="release-notes">
+              <p id="releaseNotes">Release notes will appear here.</p>
+            </div>
+          </div>
+          
+          <div class="update-actions">
+            <button class="update-btn dismiss-btn" id="dismissUpdate">Dismiss</button>
+            <a href="https://github.com/its3rr0rswrld/Bandlab-Tools" target="_blank" class="update-btn primary-btn">View on GitHub</a>
+          </div>
+        </div>
       </div>
 
       <main>
@@ -286,6 +316,19 @@
                 <span class="slider"></span>
               </label>
             </div>
+
+            <div class="option">
+              <div class="option-info">
+                <div class="option-title">Total Projects</div>
+                <div class="option-description">
+                  Show total project count in library
+                </div>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" id="totalProjects" />
+                <span class="slider"></span>
+              </label>
+            </div>
           </div>
         </section>
 
@@ -334,12 +377,17 @@
           <span class="status-indicator"></span>
           <span class="status-text">Active on BandLab</span>
         </div>
-        <div class="credits">
+        <div class="credits" id="creditsSection">
           Made by <a href="https://3rr0r.pro" target="_blank">@its3rr0rswrld</a>
+        </div>
+        <div class="update-alert" id="updateAlert" style="display: none;">
+          <span class="update-indicator"></span>
+          <a href="#" id="updateAlertLink" class="update-alert-text">Update Available</a>
         </div>
       </footer>
     </div>
 
+    <script src="updateChecker.js"></script>
     <script src="popup.js"></script>
   </body>
 </html>

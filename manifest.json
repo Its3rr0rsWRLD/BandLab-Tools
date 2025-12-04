@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "BandLab Tools",
-  "version": "0.1.0",
+  "version": "1.0.5",
   "description": "A powerful toolset for BandLab with bypass features and enhancements",
   "permissions": ["storage", "scripting"],
   "host_permissions": ["*://*.bandlab.com/*"],
@@ -27,7 +27,8 @@
         "tools/sony360Audio.js",
         "tools/membershipBypass.js",
         "tools/harmonyEditorUnlock.js",
-        "tools/fullExperimentals.js"
+        "tools/fullExperimentals.js",
+        "tools/totalProjects.js"
       ],
       "matches": ["*://*.bandlab.com/*"]
     }
@@ -52,7 +53,8 @@
         "tools/sony360Audio.js",
         "tools/membershipBypass.js",
         "tools/harmonyEditorUnlock.js",
-        "tools/fullExperimentals.js"
+        "tools/fullExperimentals.js",
+        "tools/totalProjects.js"
       ],
       "run_at": "document_end",
       "world": "MAIN"

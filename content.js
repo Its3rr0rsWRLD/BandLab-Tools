@@ -7,16 +7,18 @@ chrome.storage.sync.get(
     "sony360Audio",
     "harmonyEditorUnlock",
     "fullExperimentals",
+    "totalProjects",
   ],
   (data) => {
     const settings = {
-      membershipBypass: data.membershipBypass !== false,
+      membershipBypass: data.membershipBypass === true,
       consoleLogging: data.consoleLogging !== false,
       cleanInviteLinks: data.cleanInviteLinks !== false,
-      blockAnalytics: data.blockAnalytics !== false,
-      sony360Audio: data.sony360Audio !== false,
+      blockAnalytics: data.blockAnalytics === true,
+      sony360Audio: data.sony360Audio === true,
       harmonyEditorUnlock: data.harmonyEditorUnlock !== false,
-      fullExperimentals: data.fullExperimentals !== false,
+      fullExperimentals: data.fullExperimentals === true,
+      totalProjects: data.totalProjects !== false,
     };
 
     window.postMessage(
@@ -40,6 +42,7 @@ chrome.storage.onChanged.addListener((changes, namespace) => {
         "sony360Audio",
         "harmonyEditorUnlock",
         "fullExperimentals",
+        "totalProjects",
       ],
       (data) => {
         const settings = {
@@ -50,6 +53,7 @@ chrome.storage.onChanged.addListener((changes, namespace) => {
           sony360Audio: data.sony360Audio !== false,
           harmonyEditorUnlock: data.harmonyEditorUnlock !== false,
           fullExperimentals: data.fullExperimentals !== false,
+          totalProjects: data.totalProjects !== false,
         };
 
         window.postMessage(

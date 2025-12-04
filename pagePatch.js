@@ -10,6 +10,7 @@
     sony360Audio: false,
     harmonyEditorUnlock: false,
     fullExperimentals: false,
+    totalProjects: true,
   };
 
   window.addEventListener("message", (event) => {

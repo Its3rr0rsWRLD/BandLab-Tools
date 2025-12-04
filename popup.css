@@ -398,6 +398,49 @@ footer {
   cursor: pointer;
 }
 
+.update-alert {
+  font-size: 11px;
+  text-align: center;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.update-indicator {
+  width: 8px;
+  height: 8px;
+  background: var(--accent-color);
+  border-radius: 50%;
+  animation: flash 1s infinite;
+  box-shadow: 0 0 8px var(--accent-color);
+}
+
+@keyframes flash {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(0.9);
+  }
+}
+
+.update-alert-text {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.update-alert-text:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
 body.not-bandlab .section {
   opacity: 0.5;
   pointer-events: none;
@@ -544,4 +587,191 @@ body.not-bandlab input:disabled {
 .theme-selector option {
   background: var(--bg-secondary);
   color: #fff;
+}
+
+/* Update Notification Modal Styles */
+.update-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease-out;
+  padding: 20px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.update-modal {
+  background: var(--bg-secondary);
+  border: 2px solid var(--accent-border);
+  border-radius: 16px;
+  padding: 32px 28px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+.update-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 20px;
+  background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(100, 200, 255, 0.3);
+}
+
+.update-icon svg {
+  color: white;
+}
+
+.update-modal-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 12px 0;
+  letter-spacing: -0.5px;
+}
+
+.update-modal-version {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 24px 0;
+  line-height: 1.5;
+}
+
+.update-modal-version strong {
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.update-details {
+  margin-bottom: 24px;
+}
+
+.details-toggle {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+}
+
+.details-toggle:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--accent-border);
+}
+
+.details-chevron {
+  transition: transform 0.3s ease;
+  color: var(--accent-color);
+  flex-shrink: 0;
+}
+
+.details-toggle.expanded .details-chevron {
+  transform: rotate(180deg);
+}
+
+.release-notes {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 14px;
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: left;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease, padding 0.3s ease;
+}
+
+.release-notes.expanded {
+  max-height: 200px;
+  opacity: 1;
+  overflow-y: auto;
+}
+
+.release-notes p {
+  margin: 0;
+}
+
+.update-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.update-btn {
+  flex: 1;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.dismiss-btn {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.dismiss-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.primary-btn {
+  background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+  color: white;
+  box-shadow: 0 4px 12px rgba(100, 200, 255, 0.3);
+}
+
+.primary-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(100, 200, 255, 0.4);
 }
