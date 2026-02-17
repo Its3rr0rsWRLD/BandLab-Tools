@@ -1,4 +1,4 @@
-var CURRENT_VERSION = "1.0.6";
+var CURRENT_VERSION = "1.0.5";
 
 async function loadVersionFromManifest() {
   try {
