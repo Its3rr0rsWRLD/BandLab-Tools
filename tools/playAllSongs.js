@@ -7,15 +7,14 @@
   var loopMode = false;
   var capturedHeaders = {};
   var enabled = false;
-  var lastVolume = 1;
   var isSeeking = false;
+  var currentSong = null;
+  var songHistory = [];
 
   var nowPlayingLabel = null;
   var sliderEl = null;
   var timeCurrentEl = null;
   var timeDurationEl = null;
-  var volumeSliderEl = null;
-  var volumeBtn = null;
   var shuffleBtn = null;
   var backBtn = null;
   var playPauseBtn = null;
@@ -29,8 +28,7 @@
     pause: '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>',
     forward: '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>',
     loop: '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>',
-    volumeHigh: '<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>',
-    volumeMute: '<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>'
+
   };
 
   function checkEnabled() {
@@ -55,37 +53,30 @@
     var style = document.createElement("style");
     style.id = "bandlab-tools-transport-style";
     style.textContent = [
-      ".blt-transport{background:#111;border-radius:22px;padding:6px;display:inline-flex;flex-direction:column;align-items:center;overflow:hidden;transition:max-height .3s ease;max-height:48px;}",
+      ".blt-transport{background:rgba(255,255,255,0.06);backdrop-filter:blur(24px) saturate(1.8);-webkit-backdrop-filter:blur(24px) saturate(1.8);border-radius:22px;padding:6px;display:inline-flex;flex-direction:column;align-items:center;overflow:hidden;transition:max-height .3s cubic-bezier(0.4,0,0.2,1),box-shadow .25s ease;max-height:48px;border:1px solid rgba(255,255,255,0.10);box-shadow:0 8px 32px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.08);}",
+      ".blt-transport,.blt-transport *{box-sizing:border-box;}",
       ".blt-transport.blt-expanded{max-height:180px;}",
-      ".blt-controls{display:flex;align-items:center;gap:4px;}",
-      ".blt-ctrl{width:32px;height:32px;border-radius:9999px;border:none;background:transparent;color:#888;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s ease,transform .05s ease,color .15s ease;padding:0;}",
-      ".blt-ctrl:hover{background:#1E1E1E;color:#ccc;}",
-      ".blt-ctrl:active{transform:scale(0.96);}",
-      ".blt-ctrl.blt-play{width:36px;height:36px;background:#1E1E1E;color:#E5E5E5;}",
-      ".blt-ctrl.blt-play:hover{background:#2A2A2A;}",
-      ".blt-ctrl.blt-active{background:#1E1E1E;color:#fff;}",
-      ".blt-ctrl.blt-active:hover{background:#2A2A2A;}",
-      ".blt-now-playing{font-size:12px;color:#ccc;font-family:'Inter','Segoe UI',system-ui,-apple-system,sans-serif;font-weight:500;letter-spacing:0.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;padding:4px 10px 0;opacity:0;transition:opacity .25s ease;}",
+      ".blt-controls{display:flex;align-items:center;justify-content:space-evenly;}",
+      ".blt-ctrl{width:32px;height:32px;border-radius:9999px;border:none;background:transparent;color:rgba(255,255,255,0.45);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s cubic-bezier(0.4,0,0.2,1),transform .08s ease,color .2s ease,box-shadow .2s ease;padding:0;}",
+      ".blt-ctrl:hover{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.8);box-shadow:0 0 12px rgba(255,255,255,0.04);}",
+      ".blt-ctrl:active{transform:scale(0.95);}",
+      ".blt-ctrl.blt-play{width:36px;height:36px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.85);border:1px solid rgba(255,255,255,0.08);box-sizing:border-box;box-shadow:inset 0 1px 0 rgba(255,255,255,0.06);}",
+      ".blt-ctrl.blt-play:hover{background:rgba(255,255,255,0.12);box-shadow:inset 0 1px 0 rgba(255,255,255,0.08),0 0 16px rgba(255,255,255,0.05);}",
+      ".blt-ctrl.blt-active{background:rgba(255,255,255,0.10);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,0.08);}",
+      ".blt-ctrl.blt-active:hover{background:rgba(255,255,255,0.14);}",
+      ".blt-now-playing{font-size:12px;color:rgba(255,255,255,0.65);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',system-ui,sans-serif;font-weight:500;letter-spacing:-0.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;padding:4px 10px 0;opacity:0;transition:opacity .25s ease,text-shadow .2s ease,color .2s ease;text-decoration:none;cursor:pointer;}",
+      ".blt-now-playing:hover{text-shadow:0 0 10px rgba(255,255,255,0.35);color:rgba(255,255,255,0.95);}",
       ".blt-transport.blt-expanded .blt-now-playing{opacity:1;}",
-      ".blt-timer-row{display:flex;align-items:center;gap:6px;width:100%;padding:4px 10px 2px;box-sizing:border-box;opacity:0;transition:opacity .25s ease;}",
+      ".blt-timer-row{display:flex;align-items:center;gap:8px;width:100%;padding:15px 10px 2px;box-sizing:border-box;opacity:0;transition:opacity .25s ease;}",
       ".blt-transport.blt-expanded .blt-timer-row{opacity:1;}",
-      ".blt-time{font-size:10px;color:#666;font-family:'Inter','Segoe UI',system-ui,sans-serif;font-weight:500;font-variant-numeric:tabular-nums;min-width:32px;text-align:center;}",
-      ".blt-slider{-webkit-appearance:none;appearance:none;flex:1;height:3px;background:#333;border-radius:2px;outline:none;cursor:pointer;margin:0;}",
+      ".blt-time{font-size:10px;color:rgba(255,255,255,0.3);font-family:-apple-system,BlinkMacSystemFont,'SF Mono',system-ui,sans-serif;font-weight:500;font-variant-numeric:tabular-nums;min-width:32px;text-align:center;}",
+      ".blt-slider{-webkit-appearance:none;appearance:none;flex:1;height:3px;background:rgba(255,255,255,0.10);border-radius:2px;outline:none;cursor:pointer;margin:0;}",
       ".blt-slider::-webkit-slider-runnable-track{height:3px;background:transparent;border-radius:2px;}",
-      ".blt-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:10px;height:10px;border-radius:50%;background:#fff;cursor:pointer;margin-top:-3.5px;box-shadow:0 0 3px rgba(0,0,0,0.4);}",
-      ".blt-slider::-moz-range-track{height:3px;background:#333;border-radius:2px;}",
-      ".blt-slider::-moz-range-progress{height:3px;background:#666;border-radius:2px;}",
-      ".blt-slider::-moz-range-thumb{width:10px;height:10px;border-radius:50%;background:#fff;cursor:pointer;border:none;box-shadow:0 0 3px rgba(0,0,0,0.4);}",
-      ".blt-vol-row{display:flex;align-items:center;gap:6px;width:100%;padding:2px 10px 4px;box-sizing:border-box;opacity:0;transition:opacity .25s ease;}",
-      ".blt-transport.blt-expanded .blt-vol-row{opacity:1;}",
-      ".blt-vol-btn{background:none;border:none;color:#666;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;width:18px;height:18px;transition:color .15s ease;}",
-      ".blt-vol-btn:hover{color:#ccc;}",
-      ".blt-vol-slider{-webkit-appearance:none;appearance:none;flex:1;height:3px;background:#333;border-radius:2px;outline:none;cursor:pointer;margin:0;}",
-      ".blt-vol-slider::-webkit-slider-runnable-track{height:3px;background:transparent;border-radius:2px;}",
-      ".blt-vol-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:8px;height:8px;border-radius:50%;background:#fff;cursor:pointer;margin-top:-2.5px;box-shadow:0 0 2px rgba(0,0,0,0.4);}",
-      ".blt-vol-slider::-moz-range-track{height:3px;background:#333;border-radius:2px;}",
-      ".blt-vol-slider::-moz-range-progress{height:3px;background:#666;border-radius:2px;}",
-      ".blt-vol-slider::-moz-range-thumb{width:8px;height:8px;border-radius:50%;background:#fff;cursor:pointer;border:none;box-shadow:0 0 2px rgba(0,0,0,0.4);}"
+      ".blt-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:10px;height:10px;border-radius:50%;background:linear-gradient(180deg,#fff 0%,#e8e8e8 100%);cursor:pointer;margin-top:-3.5px;box-shadow:0 1px 4px rgba(0,0,0,0.4),0 0 1px rgba(0,0,0,0.2);}",
+      ".blt-slider::-moz-range-track{height:3px;background:rgba(255,255,255,0.10);border-radius:2px;}",
+      ".blt-slider::-moz-range-progress{height:3px;background:rgba(255,255,255,0.25);border-radius:2px;}",
+      ".blt-slider::-moz-range-thumb{width:10px;height:10px;border-radius:50%;background:linear-gradient(180deg,#fff 0%,#e8e8e8 100%);cursor:pointer;border:none;box-shadow:0 1px 4px rgba(0,0,0,0.4),0 0 1px rgba(0,0,0,0.2);}",
+
     ].join("\n");
     document.head.appendChild(style);
   }
@@ -107,17 +98,7 @@
 
   function updateSliderFill(pct) {
     if (!sliderEl) return;
-    sliderEl.style.background = "linear-gradient(to right, #666 0%, #666 " + pct + "%, #333 " + pct + "%, #333 100%)";
-  }
-
-  function updateVolumeFill(pct) {
-    if (!volumeSliderEl) return;
-    volumeSliderEl.style.background = "linear-gradient(to right, #666 0%, #666 " + pct + "%, #333 " + pct + "%, #333 100%)";
-  }
-
-  function updateVolumeIcon() {
-    if (!volumeBtn) return;
-    volumeBtn.innerHTML = (audioElement && audioElement.volume === 0) ? ICONS.volumeMute : ICONS.volumeHigh;
+    sliderEl.style.background = "linear-gradient(to right, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.25) " + pct + "%, rgba(255,255,255,0.10) " + pct + "%, rgba(255,255,255,0.10) 100%)";
   }
 
   function updatePlayPauseIcon() {
@@ -129,10 +110,15 @@
     if (!nowPlayingLabel) return;
     var capsule = nowPlayingLabel.parentElement;
     if (song) {
-      nowPlayingLabel.textContent = currentSongIndex + "/" + songs.length + "  " + song.name;
+      currentSong = song;
+      nowPlayingLabel.textContent = song.name;
+      nowPlayingLabel.href = "https://www.bandlab.com/songs/" + song.id;
+      nowPlayingLabel.title = "Open project";
       if (capsule) capsule.classList.add("blt-expanded");
     } else {
+      currentSong = null;
       nowPlayingLabel.textContent = "";
+      nowPlayingLabel.removeAttribute("href");
       if (capsule) capsule.classList.remove("blt-expanded");
       if (sliderEl) { sliderEl.value = 0; updateSliderFill(0); }
       if (timeCurrentEl) timeCurrentEl.textContent = "0:00";
@@ -171,9 +157,13 @@
 
     backBtn = makeButton("", ICONS.back, "Previous");
     backBtn.onclick = function () {
-      if (!isPlaying || songs.length === 0) return;
-      currentSongIndex = Math.max(0, currentSongIndex - 2);
-      playNextSong();
+      if (!isPlaying || songs.length === 0 || songHistory.length === 0) return;
+      var prevSong = songHistory.pop();
+      var idx = songs.indexOf(prevSong);
+      if (idx !== -1) {
+        currentSongIndex = idx;
+        playNextSong(true);
+      }
     };
 
     playPauseBtn = makeButton("blt-play", ICONS.play, "Play");
@@ -218,9 +208,10 @@
     controlsRow.appendChild(forwardBtn);
     controlsRow.appendChild(loopBtn);
 
-    nowPlayingLabel = document.createElement("span");
+    nowPlayingLabel = document.createElement("a");
     nowPlayingLabel.id = "bandlab-tools-now-playing";
     nowPlayingLabel.className = "blt-now-playing";
+    nowPlayingLabel.target = "_blank";
 
     var timerRow = document.createElement("div");
     timerRow.className = "blt-timer-row";
@@ -262,51 +253,9 @@
     timerRow.appendChild(sliderEl);
     timerRow.appendChild(timeDurationEl);
 
-    var volRow = document.createElement("div");
-    volRow.className = "blt-vol-row";
-
-    volumeBtn = document.createElement("button");
-    volumeBtn.className = "blt-vol-btn";
-    volumeBtn.innerHTML = ICONS.volumeHigh;
-    volumeBtn.title = "Mute";
-    volumeBtn.onclick = function () {
-      if (!audioElement) return;
-      if (audioElement.volume > 0) {
-        lastVolume = audioElement.volume;
-        audioElement.volume = 0;
-        volumeSliderEl.value = 0;
-        updateVolumeFill(0);
-      } else {
-        audioElement.volume = lastVolume;
-        volumeSliderEl.value = lastVolume * 100;
-        updateVolumeFill(lastVolume * 100);
-      }
-      updateVolumeIcon();
-    };
-
-    volumeSliderEl = document.createElement("input");
-    volumeSliderEl.type = "range";
-    volumeSliderEl.className = "blt-vol-slider";
-    volumeSliderEl.min = "0";
-    volumeSliderEl.max = "100";
-    volumeSliderEl.value = "100";
-    volumeSliderEl.step = "1";
-    updateVolumeFill(100);
-
-    volumeSliderEl.addEventListener("input", function () {
-      var vol = parseFloat(volumeSliderEl.value) / 100;
-      if (audioElement) audioElement.volume = vol;
-      updateVolumeFill(parseFloat(volumeSliderEl.value));
-      updateVolumeIcon();
-    });
-
-    volRow.appendChild(volumeBtn);
-    volRow.appendChild(volumeSliderEl);
-
     capsule.appendChild(controlsRow);
     capsule.appendChild(nowPlayingLabel);
     capsule.appendChild(timerRow);
-    capsule.appendChild(volRow);
     wrapper.appendChild(capsule);
 
     if (projectCountEl.nextSibling) {
@@ -369,7 +318,7 @@
     }
   }
 
-  async function playNextSong() {
+  async function playNextSong(isBack) {
     if (songs.length === 0) {
       stopPlayingAll();
       updatePlayPauseIcon();
@@ -388,8 +337,13 @@
       }
     }
 
+    if (!isBack && currentSong) {
+      songHistory.push(currentSong);
+      if (songHistory.length > 10) songHistory.shift();
+    }
+
     var songIndex = currentSongIndex;
-    if (randomMode) songIndex = Math.floor(Math.random() * songs.length);
+    if (randomMode && !isBack) songIndex = Math.floor(Math.random() * songs.length);
 
     var song = songs[songIndex];
     currentSongIndex++;
@@ -403,7 +357,6 @@
 
     if (!audioElement) {
       audioElement = new Audio();
-      audioElement.volume = volumeSliderEl ? parseFloat(volumeSliderEl.value) / 100 : 1;
 
       audioElement.addEventListener("ended", playNextSong);
       audioElement.addEventListener("error", function () { playNextSong(); });
@@ -432,6 +385,7 @@
     if (songs.length === 0) return;
     isPlaying = true;
     currentSongIndex = 0;
+    songHistory = [];
     updatePlayPauseIcon();
     playNextSong();
   }

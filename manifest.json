@@ -1,17 +1,20 @@
 {
   "manifest_version": 3,
   "name": "BandLab Tools",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A powerful toolset for BandLab with bypass features and enhancements",
+  "release_notes": "Added 'Play All Songs' feature, improved themes, and fixed various bugs.",
   "permissions": ["storage", "scripting"],
   "host_permissions": ["*://*.bandlab.com/*"],
   "action": {
-    "default_popup": "popup.html",
     "default_icon": {
       "16": "icon16.png",
       "48": "icon48.png",
       "128": "icon128.png"
     }
+  },
+  "background": {
+    "service_worker": "background.js"
   },
   "icons": {
     "16": "icon16.png",
@@ -29,7 +32,14 @@
         "tools/harmonyEditorUnlock.js",
         "tools/fullExperimentals.js",
         "tools/totalProjects.js",
-        "tools/playAllSongs.js"
+        "tools/playAllSongs.js",
+        "popup.html",
+        "popup.css",
+        "popup.js",
+        "updateChecker.js",
+        "icon128.png",
+        "icon48.png",
+        "icon16.png"
       ],
       "matches": ["*://*.bandlab.com/*"]
     }

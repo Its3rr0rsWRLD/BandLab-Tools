@@ -16,6 +16,15 @@
   <img src="./github/menu.png" alt="BandLab Tools Interface" width="360">
 </div>
 
+
+
+<details>
+<summary>
+
+## All Tools
+
+</summary>
+
 ### Bypass
 
 Unlock premium content and restricted features:
@@ -53,6 +62,8 @@ Enable "Full Experimentals Mode" in Settings to access all amplitude experiments
 - Real-time tested without UI clicks
 
 Perfect for power users and developers exploring BandLab's feature flags.
+
+</details>
 
 ---
 
