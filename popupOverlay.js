@@ -1,5 +1,4 @@
 (function () {
-  // Toggle popup if it already exists
   var existing = document.getElementById("bandlab-tools-overlay");
   if (existing) {
     var backdrop = document.getElementById("bandlab-tools-backdrop");
@@ -10,7 +9,6 @@
     return;
   }
 
-  // Inject styles into <head>
   var style = document.createElement("style");
   style.id = "bandlab-tools-overlay-style";
   style.textContent =
@@ -48,7 +46,6 @@
     "}";
   document.head.appendChild(style);
 
-  // Create backdrop (click outside to close)
   var backdrop = document.createElement("div");
   backdrop.id = "bandlab-tools-backdrop";
   backdrop.addEventListener("click", function () {
@@ -60,7 +57,6 @@
     if (st) st.remove();
   });
 
-  // Create popup container with iframe
   var overlay = document.createElement("div");
   overlay.id = "bandlab-tools-overlay";
 

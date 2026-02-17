@@ -25,7 +25,7 @@ async function checkForUpdates() {
         hasUpdate: true,
         latestVersion: latestVersion,
         currentVersion: CURRENT_VERSION,
-        releaseNotes: manifestData.description || "No release notes available."
+        releaseNotes: manifestData.release_notes || "No release notes available."
       };
     }
 

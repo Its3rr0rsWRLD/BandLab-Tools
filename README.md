@@ -27,31 +27,29 @@
 
 ### Bypass
 
-Unlock premium content and restricted features:
+- **Membership Plan Override** - Unlock all **client-side** membership features
+- **Harmony Editor Unlock** - Enable full editing capabilities in Studio's harmony editor
 
-- **Membership Plan Override** — Unlock all **client-side** membership features
-- **Harmony Editor Unlock** — Enable full editing capabilities in Studio's harmony editor
+### General Improvements
+
+- **Clean Invite Links** - Removes unnecessary arguments from invite links
+- **Total Projects** - Shows total project count in library
+- **Play All Songs** - Adds a media player to play all songs in library
 
 ### Privacy
 
-Take control of your data:
-
-- **Block All Analytics** — Disable BandLab's tracking and analytics cookies
+- **Block All Analytics** - Disable BandLab's tracking and analytics cookies
 
 ### Experimental
 
-Explore cutting-edge features:
-
-- **Sony 360 Reality Audio** — Enable immersive spatial audio playback (when available)
+- **Sony 360 Reality Audio** - Enable immersive spatial audio playback (when available)
 
 ### Settings
 
-Customize your experience:
-
-- **Full Experimentals Mode** — Unlock the full list of BandLab's amplitude experiments for advanced tweaking
-- **Auto-Reload Pages** — Automatically refresh BandLab tabs when toggling features
-- **Console Logging** — Display interception logs in your browser console for debugging
-- **Theme** — Choose from 4 themes (Black Glass, Purple Haze, Midnight Blue, Neon Pink)
+- **Full Experimentals Mode** - Unlock the full list of BandLab's amplitude experiments for advanced tweaking
+- **Auto-Reload Pages** - Automatically refresh BandLab tabs when toggling features
+- **Console Logging** - Display interception logs in your browser console for debugging
+- **Theme** - Choose from 4 themes (Black Glass, Purple Haze, Midnight Blue, Neon Pink)
 
 ## Advanced: Full Experimentals
 
