@@ -6,12 +6,7 @@ function initHarmonyEditor() {
       return;
     }
     chrome.storage.sync.set({ harmonyEditor: e.target.checked }, () => {
-      showNotification(
-        e.target.checked
-          ? "Harmony Editor unlock enabled"
-          : "Harmony Editor unlock disabled"
-      );
-
+      showNotification(e.target.checked ? "Harmony Editor unlock enabled" : "Harmony Editor unlock disabled");
       chrome.storage.sync.get(["autoReload"], (data) => {
         if (data.autoReload !== false) {
           chrome.tabs.query({ url: "*://*.bandlab.com/studio*" }, (tabs) => {

@@ -23,6 +23,14 @@ const TOOLS = {
     file: "tools/fullExperimentals.js",
     defaultEnabled: false,
   },
+  totalProjects: {
+    file: "tools/totalProjects.js",
+    defaultEnabled: true,
+  },
+  playAllSongs: {
+    file: "tools/playAllSongs.js",
+    defaultEnabled: false,
+  },
 };
 
 console.log(
@@ -43,6 +51,7 @@ async function loadEnabledTools() {
       settings
     );
 
+    const loadPromises = [];
     for (const [toolName, toolConfig] of Object.entries(TOOLS)) {
       const isEnabled =
         settings[toolName] !== undefined
@@ -50,9 +59,10 @@ async function loadEnabledTools() {
           : toolConfig.defaultEnabled;
 
       if (isEnabled) {
-        await loadTool(toolName, consoleLogging);
+        loadPromises.push(loadTool(toolName, consoleLogging));
       }
     }
+    await Promise.all(loadPromises);
   } catch (error) {
     console.error("[BandLab-Tools] Error in loadEnabledTools:", error);
   }
@@ -63,30 +73,35 @@ async function loadTool(toolName, consoleLogging = true) {
   if (!toolConfig) return;
 
   try {
+    const url = chrome.runtime.getURL(toolConfig.file);
     console.log(
-      `%c[BandLab-Tools] Loading ${toolName} from ${toolConfig.file}`,
+      `%c[BandLab-Tools] Loading ${toolName} from ${url}`,
       "background: #667eea; color: #fff; padding: 2px 5px;"
     );
 
-    const scriptElement = document.createElement("script");
-    scriptElement.src = chrome.runtime.getURL(toolConfig.file);
-    scriptElement.type = "text/javascript";
-    scriptElement.dataset.tool = toolName;
+    return new Promise((resolve) => {
+      const scriptElement = document.createElement("script");
+      scriptElement.src = url;
+      scriptElement.type = "text/javascript";
+      scriptElement.dataset.tool = toolName;
 
-    scriptElement.onload = () => {
-      if (consoleLogging) {
-        console.log(
-          `%c[BandLab-Tools] ✓ Loaded: ${toolName}`,
-          "background: #00ff88; color: #000; font-weight: bold; padding: 2px 5px;"
-        );
-      }
-    };
+      scriptElement.onload = () => {
+        if (consoleLogging) {
+          console.log(
+            `%c[BandLab-Tools] ✓ Loaded: ${toolName}`,
+            "background: #00ff88; color: #000; font-weight: bold; padding: 2px 5px;"
+          );
+        }
+        resolve();
+      };
 
-    scriptElement.onerror = (error) => {
-      console.error(`[BandLab-Tools] Failed to load ${toolName}:`, error);
-    };
+      scriptElement.onerror = (error) => {
+        console.error(`[BandLab-Tools] Failed to load ${toolName}:`, error);
+        resolve();
+      };
 
-    document.documentElement.appendChild(scriptElement);
+      (document.head || document.documentElement).appendChild(scriptElement);
+    });
   } catch (error) {
     console.error(`[BandLab-Tools] Failed to load ${toolName}:`, error);
   }

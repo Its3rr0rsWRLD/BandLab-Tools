@@ -28,7 +28,8 @@
         "tools/membershipBypass.js",
         "tools/harmonyEditorUnlock.js",
         "tools/fullExperimentals.js",
-        "tools/totalProjects.js"
+        "tools/totalProjects.js",
+        "tools/playAllSongs.js"
       ],
       "matches": ["*://*.bandlab.com/*"]
     }
@@ -54,7 +55,8 @@
         "tools/membershipBypass.js",
         "tools/harmonyEditorUnlock.js",
         "tools/fullExperimentals.js",
-        "tools/totalProjects.js"
+        "tools/totalProjects.js",
+        "tools/playAllSongs.js"
       ],
       "run_at": "document_end",
       "world": "MAIN"

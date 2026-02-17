@@ -16,15 +16,8 @@ async function handleMembershipOverride(tabId, enabled) {
 }
 
 function showMembershipNotification(message) {
-  const status = document.getElementById("status");
-  const originalHTML = status.innerHTML;
-
-  status.innerHTML = `
-    <span class="status-indicator" style="background: #00ff88;"></span>
-    <span class="status-text">${message}</span>
-  `;
-
-  setTimeout(() => {
-    status.innerHTML = originalHTML;
-  }, 2000);
+  var status = document.getElementById("status");
+  var originalHTML = status.innerHTML;
+  status.innerHTML = '<span class="status-indicator" style="background: #00ff88;"></span><span class="status-text">' + message + '</span>';
+  setTimeout(() => { status.innerHTML = originalHTML; }, 2000);
 }

@@ -7,34 +7,21 @@ function initBlockAnalytics() {
             target: { tabId: tab.id },
             args: [e.target.checked],
             func: (blocked) => {
-              localStorage.setItem(
-                "privacyConsent",
-                JSON.stringify({
-                  essential: blocked ? false : true,
-                  functionality: blocked ? false : true,
-                  analytics: false,
-                  marketing: false,
-                })
-              );
-              console.log(
-                `%c[BandLab-Tools] Analytics ${
-                  blocked ? "blocked" : "unblocked"
-                }`,
-                "background: #00ff88; color: #000; font-weight: bold; padding: 2px 5px;"
-              );
-            },
+              localStorage.setItem("privacyConsent", JSON.stringify({
+                essential: !blocked,
+                functionality: !blocked,
+                analytics: false,
+                marketing: false
+              }));
+            }
           });
         });
 
-        showNotification(
-          e.target.checked ? "Analytics blocked" : "Analytics unblocked"
-        );
+        showNotification(e.target.checked ? "Analytics blocked" : "Analytics unblocked");
 
         chrome.storage.sync.get(["autoReload"], (data) => {
           if (data.autoReload !== false) {
-            setTimeout(() => {
-              tabs.forEach((tab) => chrome.tabs.reload(tab.id));
-            }, 500);
+            setTimeout(() => { tabs.forEach((tab) => chrome.tabs.reload(tab.id)); }, 500);
           }
         });
       });

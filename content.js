@@ -1,16 +1,8 @@
 chrome.storage.sync.get(
-  [
-    "membershipBypass",
-    "consoleLogging",
-    "cleanInviteLinks",
-    "blockAnalytics",
-    "sony360Audio",
-    "harmonyEditorUnlock",
-    "fullExperimentals",
-    "totalProjects",
-  ],
+  ["membershipBypass", "consoleLogging", "cleanInviteLinks", "blockAnalytics",
+   "sony360Audio", "harmonyEditorUnlock", "fullExperimentals", "totalProjects", "playAllSongs"],
   (data) => {
-    const settings = {
+    var settings = {
       membershipBypass: data.membershipBypass === true,
       consoleLogging: data.consoleLogging !== false,
       cleanInviteLinks: data.cleanInviteLinks !== false,
@@ -19,33 +11,19 @@ chrome.storage.sync.get(
       harmonyEditorUnlock: data.harmonyEditorUnlock !== false,
       fullExperimentals: data.fullExperimentals === true,
       totalProjects: data.totalProjects !== false,
+      playAllSongs: data.playAllSongs === true
     };
-
-    window.postMessage(
-      {
-        type: "BANDLAB_TOOLS_SETTINGS",
-        settings: settings,
-      },
-      "*"
-    );
+    window.postMessage({ type: "BANDLAB_TOOLS_SETTINGS", settings: settings }, "*");
   }
 );
 
 chrome.storage.onChanged.addListener((changes, namespace) => {
   if (namespace === "sync") {
     chrome.storage.sync.get(
-      [
-        "membershipBypass",
-        "consoleLogging",
-        "cleanInviteLinks",
-        "blockAnalytics",
-        "sony360Audio",
-        "harmonyEditorUnlock",
-        "fullExperimentals",
-        "totalProjects",
-      ],
+      ["membershipBypass", "consoleLogging", "cleanInviteLinks", "blockAnalytics",
+       "sony360Audio", "harmonyEditorUnlock", "fullExperimentals", "totalProjects", "playAllSongs"],
       (data) => {
-        const settings = {
+        var settings = {
           membershipBypass: data.membershipBypass !== false,
           consoleLogging: data.consoleLogging !== false,
           cleanInviteLinks: data.cleanInviteLinks !== false,
@@ -54,15 +32,9 @@ chrome.storage.onChanged.addListener((changes, namespace) => {
           harmonyEditorUnlock: data.harmonyEditorUnlock !== false,
           fullExperimentals: data.fullExperimentals !== false,
           totalProjects: data.totalProjects !== false,
+          playAllSongs: data.playAllSongs !== false
         };
-
-        window.postMessage(
-          {
-            type: "BANDLAB_TOOLS_SETTINGS",
-            settings: settings,
-          },
-          "*"
-        );
+        window.postMessage({ type: "BANDLAB_TOOLS_SETTINGS", settings: settings }, "*");
       }
     );
   }
